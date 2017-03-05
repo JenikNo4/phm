@@ -1,0 +1,1 @@
+INSERT INTO USER ("ID","LOGIN","PASSWORD","NAME","SURENAME","EMAIL","PHONE","DISABLED") VALUES ('1','importedLogin','importedPassword','importedName','importedSurename','importedEmail','importedPhone',0);

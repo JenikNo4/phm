@@ -1,0 +1,4 @@
+INSERT INTO TEAM ("ID", "LOGO","NAME") VALUES ('1','pathToLogo','Team 1');
+INSERT INTO TEAM ("ID", "LOGO","NAME") VALUES ('2','pathToLogo2','Team 2');
+INSERT INTO SEASON ("ID","NAME","YEARS") VALUES ('1','importedSeasonName','2016/2017');
+INSERT INTO GAME ("ID","SEASON_ID") VALUES ('1','1');
