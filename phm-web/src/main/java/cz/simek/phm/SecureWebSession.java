@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
@@ -31,8 +32,8 @@ public class SecureWebSession extends AuthenticatedWebSession {
 
 	public SecureWebSession(Request request) {
 		super(request);
-		this.httpSession = ((HttpServletRequest) request.getContainerRequest()).getSession();
-		Injector.get().inject(this);
+        this.httpSession = ((HttpServletRequest) request.getContainerRequest()).getSession(true);
+        Injector.get().inject(this);
 	}
 
 	@Override
@@ -60,9 +61,9 @@ public class SecureWebSession extends AuthenticatedWebSession {
 	public Roles getRoles() {
 		Roles roles = new Roles();
 		if (isSignedIn()) {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			addRolesFromAuthentication(roles, authentication);
-		}
+            SecurityContext securityContext = (SecurityContext) this.httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
+            addRolesFromAuthentication(roles, securityContext.getAuthentication());
+        }
 		return roles;
 	}
 

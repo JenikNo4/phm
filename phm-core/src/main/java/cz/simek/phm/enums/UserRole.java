@@ -7,5 +7,5 @@ public enum UserRole {
     REGISTERED,
     AUTHENTICATED, //je proces určující skutečnou identitu uživatele. Jinými slovy je to přihlášení/odhlášení.
     REPORTER,
-    ADMIN;
+    ADMIN
 }
