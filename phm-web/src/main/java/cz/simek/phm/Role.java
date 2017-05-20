@@ -12,11 +12,13 @@ public enum Role {
 
 	TELLER("teller"),
 
-	USER("user");
+	USER("user"),
+
+	ADMIN("ADMIN");
 
 	private final String springSecurityRoleName;
 
-	private Role(String springSecurityRoleName) {
+	Role(String springSecurityRoleName) {
 		this.springSecurityRoleName = springSecurityRoleName;
 	}
 

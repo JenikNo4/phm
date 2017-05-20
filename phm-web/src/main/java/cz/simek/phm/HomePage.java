@@ -16,8 +16,16 @@ public class HomePage extends WebPage {
     UserService userService;
 
     public HomePage() {
+        SecureWebSession session = (SecureWebSession) getSession();
         //userService.createUser();
         add(new Label("message", userService.printFirstUser().getLogin()));
+        if (session.hasRole(Role.ADMIN)) {
+            add(new Label("message1", userService.printFirstUser().getEmail()));
+        } else {
+            add(new Label("message1", "not logged"));
+        }
+
+
     }
 
 
