@@ -4,6 +4,7 @@ import cz.simek.phm.config.JpaTestConfig;
 import cz.simek.phm.config.TestConfig;
 import cz.simek.phm.model.Game;
 import cz.simek.phm.model.Team;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,6 +40,7 @@ public class GameDaoImplTest {
     private ApplicationContext app;
 
     @Test
+    @Rollback
     public void findById() throws Exception {
         Game game = gameDao.findById(1L);
         assertEquals(game.getId().longValue(), 1L);
@@ -47,11 +51,18 @@ public class GameDaoImplTest {
     }
 
     @Test
+    public void saveGame(){
+        Game game = createGame();
+        gameDao.saveNew(game);
+        Assert.notNull(game.getId());
+    }
+
+    @Test
     @Rollback
     public void saveAndUpdateGame() {
         Game game = createGame();
         gameDao.saveNew(game);
-        Game game1 = gameDao.findById(2L);
+        Game game1 = gameDao.findById(game.getId());
         assertEquals(game1.getHomeTeam().getId().longValue(),game.getHomeTeam().getId().longValue());
         assertEquals(game1.getAwayScore(),0);
 
@@ -60,7 +71,7 @@ public class GameDaoImplTest {
         game1.setAwayScore(2);
         gameDao.updateGame(game1);
 
-        Game game2 = gameDao.findById(2L);
+        Game game2 = gameDao.findById(game1.getId());
         assertEquals(game2.getHomeTeam().getId().longValue(),game.getHomeTeam().getId().longValue());
         assertEquals(game2.getAwayScore(),2);
         assertEquals(game2.getHomeScore(),6);
