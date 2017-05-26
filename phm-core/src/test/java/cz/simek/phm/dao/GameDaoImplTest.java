@@ -4,7 +4,6 @@ import cz.simek.phm.config.JpaTestConfig;
 import cz.simek.phm.config.TestConfig;
 import cz.simek.phm.model.Game;
 import cz.simek.phm.model.Team;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
